@@ -11,6 +11,7 @@ typedef signed int int32_t;
 
 typedef uint32_t size_t;
 typedef int32_t ssize_t;
+typedef uint16_t uintptr_t;  // 16位指针类型
 
 #define NULL ((void*)0)
 

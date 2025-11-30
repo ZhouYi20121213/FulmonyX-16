@@ -17,13 +17,17 @@ OUT_DIR := out
 # 源文件
 BOOTLOADER_SRC := $(BOOT_DIR)/bootloader.asm
 KERNEL_ASM_SRC := $(KERNEL_DIR)/kernel.asm
+INTERRUPT_ASM_SRC := $(KERNEL_DIR)/interrupt_asm.asm
 KERNEL_C_SRC := $(KERNEL_DIR)/kernel.c
+INTERRUPT_C_SRC := $(KERNEL_DIR)/interrupt.c
 LINK_SCRIPT := $(SRC_DIR)/ld-kernel.ld
 
 # 输出文件
 BOOTLOADER_BIN := $(OUT_DIR)/bootloader.bin
 KERNEL_ASM_OBJ := $(OUT_DIR)/kernel_asm.o
+INTERRUPT_ASM_OBJ := $(OUT_DIR)/interrupt_asm.o
 KERNEL_C_OBJ := $(OUT_DIR)/kernel_c.o
+INTERRUPT_C_OBJ := $(OUT_DIR)/interrupt_c.o
 KERNEL_ELF := $(OUT_DIR)/kernel.elf
 KERNEL_BIN := $(OUT_DIR)/kernel.bin
 OS_IMG := FulmonyX-16.iso
@@ -54,10 +58,20 @@ $(KERNEL_C_OBJ): $(KERNEL_C_SRC) | $(OUT_DIR)
 	@echo "Building kernel C..."
 	$(GCC) $(GCC_FLAGS) -c $< -o $@ -I inc/
 
+$(INTERRUPT_C_OBJ): $(INTERRUPT_C_SRC) | $(OUT_DIR)
+	@echo "Building interrupt C..."
+	$(GCC) $(GCC_FLAGS) -c $< -o $@ -I inc/
+
+# 编译中断汇编代码
+$(INTERRUPT_ASM_OBJ): $(INTERRUPT_ASM_SRC) | $(OUT_DIR)
+	@echo "Building interrupt ASM..."
+	$(NASM) -f elf32 $< -o $@ -I inc/
+
 # 链接内核
-$(KERNEL_ELF): $(KERNEL_ASM_OBJ) $(KERNEL_C_OBJ) $(LINK_SCRIPT)
+# 链接内核
+$(KERNEL_ELF): $(KERNEL_ASM_OBJ) $(INTERRUPT_ASM_OBJ) $(KERNEL_C_OBJ) $(INTERRUPT_C_OBJ) $(LINK_SCRIPT)
 	@echo "Linking kernel..."
-	$(LD) -m elf_i386 -T $(LINK_SCRIPT) -o $@ $(KERNEL_ASM_OBJ) $(KERNEL_C_OBJ)
+	$(LD) -m elf_i386 -T $(LINK_SCRIPT) -o $@ $(KERNEL_ASM_OBJ) $(INTERRUPT_ASM_OBJ) $(KERNEL_C_OBJ) $(INTERRUPT_C_OBJ)
 
 # 提取内核二进制
 $(KERNEL_BIN): $(KERNEL_ELF)
