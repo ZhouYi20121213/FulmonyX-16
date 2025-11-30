@@ -152,24 +152,12 @@ void draw_my_shape(int x, int y, int size, unsigned char color) {
 - **黑屏**: 检查引导扇区是否正确 (末尾应为 0x55AA)
 - **中断不工作**: 确保 IVT 正确设置,DS 段寄存器为 0
 
-## 📚 参考资料
-
-- [OSDev Wiki](https://wiki.osdev.org/)
-- [Intel 80x86 程序员参考手册](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
-- [VGA 编程](https://files.osdev.org/mirrors/geezer/osd/graphics/modes.htm)
-- [BIOS 中断列表](http://www.ctyme.com/intr/int.htm)
-
-## 📄 许可证
-
-本项目采用 MIT 许可证。详见 LICENSE 文件。
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request!
-
 ## 👨‍💻 作者
 
-FulmonyX-16 OS 开发团队
+FulmonyX
+<a href="https://bilibili.com">Bilibili</a> id: 3546771447875824
+<a href="https://luogu.com.cn">Luogu</a> id: 1546189
+<a href="https://leetcode.cn">Leetcode</a> id: avvesome-bardeenpuu
 
 ---
 
