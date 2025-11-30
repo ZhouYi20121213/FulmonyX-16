@@ -22,7 +22,6 @@ void put_pixel(int x, int y, unsigned char color);
 void print_char(char c);
 void print_string(const char* str);
 void set_video_mode(int mode);
-void graphics_demo(void);
 void draw_line(int x0, int y0, int x1, int y1, unsigned char color);
 void draw_rectangle(int x, int y, int width, int height, unsigned char color);
 void draw_circle(int x_center, int y_center, int radius, unsigned char color);
